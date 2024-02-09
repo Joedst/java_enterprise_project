@@ -1,9 +1,9 @@
-package com.nero.java_enterprise_project.service;
+package com.nero.java_enterprise_project.service.impl;
 
 
 import com.nero.java_enterprise_project.model.Order;
-import com.nero.java_enterprise_project.model.Product;
 import com.nero.java_enterprise_project.repository.OrderRepository;
+import com.nero.java_enterprise_project.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +38,6 @@ public OrderServiceImpl(OrderRepository orderRepository){
 
     @Override
     public void deleteOrder(Long id) {
-        orderRepository.deleteById(id);
+     orderRepository.deleteById(id);
     }
 }
