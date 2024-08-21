@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -15,16 +14,19 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 public class SecurityConfiguration {
 
+    private final UserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserDetailsService userDetailsService;
-
+    public SecurityConfiguration(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .cors().and()
-                .csrf().disable()
+
                 .authorizeHttpRequests((authz) -> authz
                         .anyRequest().authenticated()
                 )
@@ -32,16 +34,16 @@ public class SecurityConfiguration {
         return http.build();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
     @Autowired
-    public void configureGlobal (AuthenticationManagerBuilder auth) throws Exception {
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        // Adding an in-memory user for testing purposes
+        auth.inMemoryAuthentication()
+                .withUser("user")
+                .password(passwordEncoder.encode("123"))
+                .roles("USER");
+
+        // Retain your custom UserDetailsService setup
         auth.userDetailsService(userDetailsService)
-        .passwordEncoder(passwordEncoder());
+                .passwordEncoder(passwordEncoder);
     }
-
 }
-

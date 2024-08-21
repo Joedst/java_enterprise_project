@@ -1,11 +1,9 @@
 package com.nero.java_enterprise_project.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "app_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,5 +46,5 @@ public class User {
         this.email = email;
     }
 
-    private String email;
+
 }

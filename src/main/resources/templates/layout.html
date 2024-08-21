@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:insert="~{::title}">My Web Shop</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header>
+    <h1>My Web Shop</h1>
+    <nav>
+        <a th:href="@{/products}">Products</a>
+        <a th:href="@{/cart}">Cart</a>
+        <a th:href="@{/orders}">My Orders</a>
+    </nav>
+</header>
+<div th:insert="~{::content}"></div>
+<footer>
+    <p>&copy; 2024 My Web Shop</p>
+</footer>
+</body>
+</html>
