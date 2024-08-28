@@ -26,9 +26,21 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-
+                .csrf().disable()
                 .authorizeHttpRequests((authz) -> authz
+                        .requestMatchers("/register", "/login", "/css/**", "/js/**", "/images/**").permitAll()
                         .anyRequest().authenticated()
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .permitAll()
+                        .defaultSuccessUrl("/")
+                        .failureUrl("/login?error=true")
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout=true")
+                        .permitAll()
                 )
                 .httpBasic(withDefaults());
         return http.build();
@@ -36,13 +48,13 @@ public class SecurityConfiguration {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        // Adding an in-memory user for testing purposes
+
         auth.inMemoryAuthentication()
                 .withUser("user")
                 .password(passwordEncoder.encode("123"))
                 .roles("USER");
 
-        // Retain your custom UserDetailsService setup
+
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder);
     }
