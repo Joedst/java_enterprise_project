@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+
+<head>
+  <title layout:fragment="title">Shopping Cart</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+  <h1>Your Shopping Cart</h1>
+  <table>
+    <thead>
+    <tr>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Total</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="entry : ${cart.products.entrySet()}">
+      <td th:text="${entry.key.name}">Product Name</td>
+      <td th:text="${entry.value}">1</td>
+      <td th:text="${entry.key.price}">0.00</td>
+      <td th:text="${entry.key.price * entry.value}">0.00</td>
+      <td><a th:href="@{'/cart/remove/' + ${entry.key.id}}">Remove</a></td>
+    </tr>
+    </tbody>
+  </table>
+  <div>
+    <p>Total Price: <span th:text="${cart.totalPrice}">0.00</span></p>
+    <a th:href="@{/products}">Back to products</a>
+    <a th:href="@{/checkout}">Proceed to Checkout (under dev)</a>
+  </div>
+</div>
+</body>
+</html>

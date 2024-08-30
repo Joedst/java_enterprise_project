@@ -1,0 +1,30 @@
+<!-- layout.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title layout:fragment="title">Default Title</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header>
+    <h1>3D Prints shop</h1>
+    <nav>
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/products}">View Products</a>
+        <a th:href="@{/register}">Register new users</a>
+        <a th:href="@{/users}">Current users</a>
+        <a th:href="@{/login}">Log In</a>
+        <a th:href="@{/cart}">Cart</a>
+    </nav>
+</header>
+
+
+<div layout:fragment="content">
+    <p>This is default content.</p>
+</div>
+
+<footer>
+    <p>&copy; 2024 3D Print Shop</p>
+</footer>
+</body>
+</html>

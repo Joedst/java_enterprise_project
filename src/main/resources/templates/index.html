@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+
 <head>
-    <title>Webshop</title>
-
+    <title layout:fragment="title">Home - 3D Prints Web Shop</title>
 </head>
-<body>
-<h1>3D Prints web shop</h1>
-<a href="/products">View Products</a>
-<a href="/register">Register</a>
-<a href="/users">Current users from DB</a>
-<a href="/login">Log In</a>
 
+<body>
+<div layout:fragment="content">
+    <h2>Welcome to the Web Shop!</h2>
+    <p>Here you can browse and purchase our 3D prints.</p>
+</div>
 </body>
 </html>
